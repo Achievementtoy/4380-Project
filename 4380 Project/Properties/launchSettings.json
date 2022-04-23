@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "4380 Project": {
+      "commandName": "Project",
+      "commandLineArgs": "proj3.asm"
+    }
+  }
+}
