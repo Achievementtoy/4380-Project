@@ -65,9 +65,8 @@ namespace _4380_Project
                     {
                         continue;
                     }
-                    foreach (var s in i.Split(delimiters))
+                    foreach (var s in i.Split(new[]{" ",", ","\t","( ",") ","\0"},StringSplitOptions.RemoveEmptyEntries))
                     {
-                        isnot = false;
                         if (isOp && (s == ".BYT" || s == ".INT"))
                         {
                             throw new Exception(
@@ -425,15 +424,27 @@ namespace _4380_Project
 
                         if (isOp && i.Contains("TRP") &&  (s == "3" || s == "1" || s == "0" ||s == "4" || s == "99" || s == "2"))
                         {
-                            b = s switch
+                            switch (s)
                             {
-                                "3" => BitConverter.GetBytes(3),
-                                "2" => BitConverter.GetBytes(2),
-                                "1" => BitConverter.GetBytes(1),
-                                "99" => BitConverter.GetBytes(99),
-                                "4" => BitConverter.GetBytes(4),
-                                _ => BitConverter.GetBytes(0)
-                            };
+                                case "3":
+                                    b = BitConverter.GetBytes(3);
+                                    break;
+                                case "2":
+                                    b = BitConverter.GetBytes(2);
+                                    break;
+                                case "1":
+                                    b = BitConverter.GetBytes(1);
+                                    break;
+                                case "99":
+                                    b = BitConverter.GetBytes(99);
+                                    break;
+                                case "4":
+                                    b = BitConverter.GetBytes(4);
+                                    break;
+                                default:
+                                    b = BitConverter.GetBytes(0);
+                                    break;
+                            }
                             //if (s == "3")
                             //{
                             //    b = BitConverter.GetBytes(3);
@@ -711,18 +722,10 @@ namespace _4380_Project
                         }
                         //ADD, SUB, DIV, MUL, LDR, TRP, LDB, MOV, START, EVEN, ENDWHILE, ENDIF, BCMP, LT, GT,EQ,FINISH,print,ps,eps,reset,for0,ef0,getdata,eps2,isroom,gdendif,opd,ELSE1, ELSE2, ELSE3, ELSE4, ELSE5, ELSE6, ELSE7, ELSE8, ELSE9,
                         // ELSEF,ps1,eps1,SPLUSELSE,ENDSPLUS,ENDIFFLAG,flush,flw1,whi1,if2,el1,eif1,whi3,ewh3,prf,eprf,els2,ewh2,ewh1,nodbz,UNDERFLOW,OVERFLOW
-                                    var enums = Enum.GetNames(typeof(Labels));
-                        foreach (var mystr in enums)
-                        {
-                            if ( i.StartsWith("$") || ((i.StartsWith(mystr) && (Enum.GetNames(typeof(Labels)).Contains(s)))))
-                            {
-                                isnot = true;
-                                break;
+                        var enums = Enum.GetNames(typeof(Labels));
+                                    isnot = enums.Any(mystr => i.StartsWith("$") || ((i.StartsWith(mystr) && (Enum.GetNames(typeof(Labels)).Contains(s)))));
 
-                            }
-                        }
-
-                        if (isnot == true)
+                        if (isnot)
                         {
                             continue;
                         }
