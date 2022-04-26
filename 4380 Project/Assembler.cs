@@ -96,7 +96,7 @@ namespace _4380_Project
                             ;
                         }
                         //This is for register indirect values.
-                        if (i.Contains("("))
+                        if (i.Contains("(") && i.Contains(")"))
                         {
                             var rex = new Regex(@"/\(([^)]+)\)/");
                             switch (s)

@@ -75,12 +75,12 @@ namespace _4380_Project
                                 case 4:
                                     int readin;
                                     var s = Console.Read();
-                                    var getridofwhitespace = Console.Read();
+                                    //var getridofwhitespace = Console.Read();
                                     //This needed modification to account for stop symbol. C# was not as easy in accounting for this.
-                                    while (getridofwhitespace != '\n')
-                                    {
-                                        getridofwhitespace = Console.Read();
-                                    }
+                                    //while (getridofwhitespace != '\n')
+                                    //{
+                                    //    getridofwhitespace = Console.Read();
+                                    //}
                                     //This could be simplified, but I don't care enough right now too. Just need this to work.
                                     if (s == '\r')
                                     {
@@ -302,3 +302,6 @@ namespace _4380_Project
         }
     }
 }
+//Switchsuccess = false
+//switchoptions = 0
+//default = true;
